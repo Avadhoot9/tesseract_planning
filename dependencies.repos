@@ -1,6 +1,6 @@
 - git:
     local-name: descartes_light
-    uri: https://github.com/swri-robotics/descartes_light.git
+    uri: git@github.com:GrayMatter-Robotics/descartes_light.git
     version: 0.4.5
 - git:
     local-name: ifopt
