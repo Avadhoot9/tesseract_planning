@@ -121,10 +121,13 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
   try
   {
     // Build Graph
-    if (!solver->build(waypoint_samplers, edge_evaluators, state_evaluators))
+    auto build_status = solver->build(waypoint_samplers, edge_evaluators, state_evaluators);
+    if (!build_status)
     {
       response.successful = false;
       response.message = ERROR_FAILED_TO_BUILD_GRAPH;
+      // Preserve BuildStatus so callers can inspect failed_vertices/failed_edges
+      response.data = std::make_shared<descartes_light::BuildStatus>(std::move(build_status));
       return response;
     }
 
