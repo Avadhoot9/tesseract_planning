@@ -138,6 +138,9 @@ PlannerResponse DescartesMotionPlanner<FloatType>::solve(const PlannerRequest& r
       CONSOLE_BRIDGE_logError("Search for graph completion failed");
       response.successful = false;
       response.message = ERROR_FAILED_TO_FIND_VALID_SOLUTION;
+      // Build succeeded — store BuildStatus with graph diagnostics (rung_sizes, edge_counts)
+      // failed_edges/failed_vertices are empty since build was OK.
+      response.data = std::make_shared<descartes_light::BuildStatus>(std::move(build_status));
       return response;
     }
   }
